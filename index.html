@@ -1,0 +1,162 @@
+ <!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zırhlı Etiket</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .kutu { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 100%; border-top: 4px solid #1a365d; }
+        h1 { color: #222; margin-bottom: 10px; }
+        p { color: #666; font-size: 16px; margin-bottom: 20px; }
+        input, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        
+        /* Buton Stilleri */
+        button { background: #1a365d; color: white; border: none; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        button:hover { background: #2a4365; }
+        .sosyal-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: white; color: #333; border: 1px solid #ccc; margin: 8px 0; }
+        .google-btn:hover { background: #f8f9fa; border-color: #4285F4; color: #4285F4; }
+        .facebook-btn { background: #1877F2; color: white; border: none; }
+        .facebook-btn:hover { background: #166FE5; }
+        
+        .linkler { display: flex; justify-content: space-between; margin-top: 20px; font-size: 13px; }
+        .linkler a { color: #1a365d; text-decoration: none; font-weight: bold; }
+        .admin-link { display: inline-block; margin-top: 25px; color: #bbb; text-decoration: none; font-size: 11px; }
+        .gizli { display: none; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. ANA SAYFA (ZİYARETÇİLER İÇİN) -->
+    <div id="anaSayfa" class="kutu">
+        <h1 id="siteBaslik">ZIRHLI ETİKET</h1>
+        <p id="siteAciklama">İnternet sitemiz yapım aşamasındadır. Çok yakında hizmetinizdeyiz.</p>
+        
+        <button onclick="ekranDegistir('uyeLoginEkrani')">Müşteri Girişi / Üye Ol</button>
+        
+        <a href="#" onclick="ekranDegistir('adminLoginEkrani')" class="admin-link">Sistem Yönetici Girişi</a>
+    </div>
+
+    <!-- 2. MÜŞTERİ GİRİŞ EKRANI -->
+    <div id="uyeLoginEkrani" class="kutu gizli">
+        <h2>Müşteri Girişi</h2>
+        <input type="email" placeholder="E-posta Adresiniz">
+        <input type="password" placeholder="Şifreniz">
+        <button onclick="alert('Müşteri girişi yapıldı (Simüle Edildi)')">Giriş Yap</button>
+        
+        <hr>
+        <!-- Sosyal Medya İle Giriş Butonları -->
+        <button class="sosyal-btn google-btn" onclick="alert('Google ile giriş altyapısına bağlanılıyor...')">
+            🌐 Google ile Giriş Yap
+        </button>
+        <button class="sosyal-btn facebook-btn" onclick="alert('Facebook ile giriş altyapısına bağlanılıyor...')">
+            📘 Facebook ile Giriş Yap
+        </button>
+
+        <div class="linkler">
+            <a href="#" onclick="ekranDegistir('uyeKayitEkrani')">Hesap Oluştur (Üye Ol)</a>
+            <a href="#" onclick="ekranDegistir('anaSayfa')">← Geri Dön</a>
+        </div>
+    </div>
+
+    <!-- 3. MÜŞTERİ KAYIT (ÜYE OL) EKRANI -->
+    <div id="uyeKayitEkrani" class="kutu gizli">
+        <h2>Yeni Üyelik Oluştur</h2>
+        <input type="text" placeholder="Adınız Soyadınız">
+        <input type="email" placeholder="E-posta Adresiniz">
+        <input type="password" placeholder="Şifre Belirleyin">
+        <button onclick="alert('Üyeliğiniz başarıyla oluşturuldu! Giriş yapabilirsiniz.')">Kayıt Ol</button>
+        
+        <hr>
+        <button class="sosyal-btn google-btn" onclick="alert('Google ile kayıt altyapısına bağlanılıyor...')">
+            🌐 Google ile Hızlı Kayıt Ol
+        </button>
+
+        <div class="linkler">
+            <a href="#" onclick="ekranDegistir('uyeLoginEkrani')">Zaten Üyeyim, Giriş Yap</a>
+            <a href="#" onclick="ekranDegistir('anaSayfa')">← İptal Et</a>
+        </div>
+    </div>
+
+    <!-- 4. GÜVENLİ ADMİN GİRİŞ EKRANI -->
+    <div id="adminLoginEkrani" class="kutu gizli">
+        <h2>Yönetici Girişi (Dükkan Sahibi)</h2>
+        <p style="font-size:12px; color:#999;">Bu alan sadece dükkan yönetimi içindir.</p>
+        <input type="text" id="adminKullaniciAdi" placeholder="Yönetici Adı">
+        <input type="password" id="adminSifre" placeholder="Yönetici Şifresi">
+        <button onclick="adminGirişYap()">Sisteme Giriş Yap</button>
+        <a href="#" onclick="ekranDegistir('anaSayfa')" class="admin-link">← Siteye Dön</a>
+    </div>
+
+    <!-- 5. PANEL (İÇERİK DEĞİŞTİRME EKRANI) -->
+    <div id="panelEkrani" class="kutu gizli">
+        <h2>Yönetim Paneli</h2>
+        <p>Aşağıdaki alanları değiştirip kaydedin.</p>
+        
+        <label><b>Dükkan Adı:</b></label>
+        <input type="text" id="yeniBaslik">
+        
+        <label><b>Sitedeki Yazı / Duyuru:</b></label>
+        <textarea id="yeniAciklama" rows="4"></textarea>
+        
+        <button onclick="ayarlariKaydet()">Değişiklikleri Kaydet</button>
+        <br><br>
+        <button onclick="cikisYap()" style="background:#cc0000;">Oturumu Kapat</button>
+    </div>
+
+    <script>
+        window.onload = function() {
+            if(localStorage.getItem("baslik")) {
+                document.getElementById("siteBaslik").innerText = localStorage.getItem("baslik");
+                document.getElementById("siteAciklama").innerText = localStorage.getItem("aciklama");
+            }
+        };
+
+        function ekranDegistir(ekranId) {
+            document.getElementById("anaSayfa").classList.add("gizli");
+            document.getElementById("uyeLoginEkrani").classList.add("gizli");
+            document.getElementById("uyeKayitEkrani").classList.add("gizli");
+            document.getElementById("adminLoginEkrani").classList.add("gizli");
+            document.getElementById("panelEkrani").classList.add("gizli");
+            
+            document.getElementById(ekranId).classList.remove("gizli");
+        }
+
+        function adminGirişYap() {
+            var kadi = document.getElementById("adminKullaniciAdi").value;
+            var pass = document.getElementById("adminSifre").value;
+
+            // Güçlü Admin Giriş Bilgileri
+            if (kadi === "zirhli_admin" && pass === "Zirhli_Etiket_2026!") {
+                document.getElementById("yeniBaslik").value = document.getElementById("siteBaslik").innerText;
+                document.getElementById("yeniAciklama").value = document.getElementById("siteAciklama").innerText;
+                ekranDegistir('panelEkrani');
+            } else {
+                alert("Hatalı yönetici adı veya şifre!");
+            }
+        }
+
+        function ayarlariKaydet() {
+            var baslik = document.getElementById("yeniBaslik").value;
+            var aciklama = document.getElementById("yeniAciklama").value;
+
+            localStorage.setItem("baslik", baslik);
+            localStorage.setItem("aciklama", aciklama);
+
+            document.getElementById("siteBaslik").innerText = baslik;
+            document.getElementById("siteAciklama").innerText = aciklama;
+
+            alert("Site başarıyla güncellendi!");
+            ekranDegistir('anaSayfa');
+        }
+
+        function cikisYap() {
+            document.getElementById("adminKullaniciAdi").value = "";
+            document.getElementById("adminSifre").value = "";
+            ekranDegistir('anaSayfa');
+        }
+    </script>
+
+</body>
+</html>
